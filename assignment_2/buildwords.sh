@@ -1,0 +1,1 @@
+cat hwnwdshw.htm | egrep '<td>.+</td?' | tr [:upper:] [:lower:] | sed 's/?*//g' | sed 's/<\/*u>//g' | sed '1,2d' | sed 's/`/'\''/g' | sed '178i\    <td>ignoreme<\\td>' | awk 'NR % 2 == 1' | sed 's/<\/*td>//g' | sed 's/    //g' | sort -u
