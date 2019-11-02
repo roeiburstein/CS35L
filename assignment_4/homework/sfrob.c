@@ -8,11 +8,14 @@ const int GREATER = 1;
 
 char unfrobChar(const char c);
 int frobcmp(char const * a, char const * b);
-// void tester();
-void run();
 void run2();
 void checkForInputError();
 short checkForEndOfFile(char c);
+int compare(const void * a, const void * b);
+
+int compare(const void * a, const void * b){
+    return frobcmp(*(char**) a, *(char**) b);
+}
 
 /*
  * compares two frobnicated characters a and b
@@ -54,38 +57,8 @@ char unfrobChar(const char c){
     return (c ^ 42);
 };
 
-/*
-void tester(){
-    char c;
-
-    char input1[] = "*{_CIA\030\031 ";
-    char input2[] = "*`_GZY\v ";
-
-    const char * ptr1 = input1;
-    const char * ptr2 = input2;
-
-    int a = frobcmp(ptr1, ptr2);
-    printf("%d", a);
-};
-*/
-
-/*
-void run(){
-    int lettersInWord = 0, numWords = 0;
-    char * myWord;
-    char ** wordList;
-
-    wordList == NULL;
-    myWord = (char *)malloc(sizeof(char));
-    myWord[lettersInWord] = getc(stdin); // save first character
-    if(ferror(stdin)){
-        fprintf(stderr, "ERROR with input, exiting program");
-        exit(1);
-    }
-};
-*/
-
 void run2(){
+    // printf("I ran run2\n");
     char myChar;
     char * myWord = (char *)malloc(sizeof(char *));
     char ** wordList = (char **)malloc(sizeof(char **));
@@ -98,13 +71,14 @@ void run2(){
         fprintf(stderr, "ERROR with memory allocation, exiting program");
         exit(1);
     }
-
+    // printf("I got to this point\n");
     // wordList[0] = myWord;
 
     while(1){
-        printf("1");
+        // fprintf(stdout, "1\n");
         myChar = getc(stdin);
-
+        fprintf(stdout, "%c", myChar);
+        fprintf(stdout, "\n");
         checkForInputError();
         if(checkForEndOfFile(myChar)){
             break;
@@ -112,6 +86,7 @@ void run2(){
 
         // if we are still adding characters to the current word
         if(!endOfWord){
+            // fprintf(stdout, "NOT END OF WORD!");
             myWord = (char *)realloc(myWord, (numChars + 1) * sizeof(char));
             if(myWord == NULL){
                 fprintf(stderr, "ERROR with memory allocation, exiting program");
@@ -129,12 +104,14 @@ void run2(){
         }
 
         else{
-            printf("2");
+            // fprintf(stdout, "2");
             if(myChar == ' '){
                 continue;
             }
 
             wordList[numWords++] = myWord;
+            fprintf(stdout, "N WORDS: ");
+            fprintf(stdout, "%d", numWords);
 
             myWord = (char *)malloc(sizeof(char *));
             if(myWord == NULL) {
@@ -154,13 +131,15 @@ void run2(){
             endOfWord = 0;
         }
     }
-    printf("3");
-    qsort(wordList, numWords + 1, sizeof(char**), frobcmp);
 
+    // fprintf(stdout, "3");
+    qsort(wordList, numWords + 1, sizeof(char**), compare);
+    fprintf(stdout, "####### NUMBER OF WORDS: ########");
+    fprintf(stdout, "%d", numWords);
     for(int i = 0; i < numWords; i++){
-        printf(wordList[i]);
+        fprintf(stdout, "%s", wordList[i]);
     }
-    printf("4");
+    // fprintf(stdout, "4");
 
 }
 
@@ -174,7 +153,8 @@ void checkForInputError(){
 
 short checkForEndOfFile(char c){
     if(c == EOF){
-        printf("File reading is completed\n");
+        // fprintf(stdout, "HERERERERERE");
+        // fprintf(stdout, "File reading is completed\n");
         return 1;
     }
     return 0;
