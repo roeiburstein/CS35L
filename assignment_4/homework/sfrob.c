@@ -102,6 +102,7 @@ void run2(){
     // wordList[0] = myWord;
 
     while(1){
+        printf("1");
         myChar = getc(stdin);
 
         checkForInputError();
@@ -128,6 +129,7 @@ void run2(){
         }
 
         else{
+            printf("2");
             if(myChar == ' '){
                 continue;
             }
@@ -152,14 +154,14 @@ void run2(){
             endOfWord = 0;
         }
     }
-    /*
+    printf("3");
     qsort(wordList, numWords + 1, sizeof(char**), frobcmp);
 
     for(int i = 0; i < numWords; i++){
-        for(int j = 0; j < wordList[i])
-
+        printf(wordList[i]);
     }
-     */
+    printf("4");
+
 }
 
 
@@ -172,12 +174,12 @@ void checkForInputError(){
 
 short checkForEndOfFile(char c){
     if(c == EOF){
-        printf("File reading is completed");
+        printf("File reading is completed\n");
         return 1;
     }
     return 0;
 }
 
 int main(void){
-    run();
+    run2();
 };
