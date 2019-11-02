@@ -13,6 +13,9 @@ void checkForInputError();
 short checkForEndOfFile(char c);
 int compare(const void * a, const void * b);
 
+/*
+ * function that runs frobcmp as input for qsort
+ */
 int compare(const void * a, const void * b){
     return frobcmp(*(char**) a, *(char**) b);
 }
@@ -60,58 +63,53 @@ char unfrobChar(const char c){
 void run2(){
     // printf("I ran run2\n");
     char myChar;
-    char * myWord = (char *)malloc(sizeof(char *));
-    char ** wordList = (char **)malloc(sizeof(char **));
+    char * myWord = (char *)malloc(sizeof(char));
+    char ** wordList = (char **)malloc(sizeof(char *));
     short endOfWord = 0; // 0 if it is NOT the end of the word, 1 if it IS the end of the word
     int numChars = 0;  // number of characters in the current word
     int numWords = 0; // number of words in the word list
+    int prevNumChars = -1; // number of characters of previous word
 
     // checks to see if memory couldn't be allocated for myWord or wordList
     if(myWord == NULL || wordList == NULL){
         fprintf(stderr, "ERROR with memory allocation, exiting program");
         exit(1);
     }
-    // printf("I got to this point\n");
-    // wordList[0] = myWord;
+    wordList[0] = myWord;
 
     while(1){
-        // fprintf(stdout, "1\n");
         myChar = getc(stdin);
-        fprintf(stdout, "%c", myChar);
-        fprintf(stdout, "\n");
         checkForInputError();
         if(checkForEndOfFile(myChar)){
+            if(wordList[numWords - 1][prevNumChars - 1] != ' ') {
+
+                myWord = (char*) realloc(myWord, (numChars + 1) * sizeof(char));
+                myWord[numChars] = ' ';
+                wordList[numWords - 1] = myWord;
+
+            }
             break;
         }
 
         // if we are still adding characters to the current word
         if(!endOfWord){
-            // fprintf(stdout, "NOT END OF WORD!");
             myWord = (char *)realloc(myWord, (numChars + 1) * sizeof(char));
             if(myWord == NULL){
                 fprintf(stderr, "ERROR with memory allocation, exiting program");
                 exit(1);
             }
+            myWord[numChars++] = myChar;
 
-            if(myChar != ' '){
-                myWord[numChars++] = myChar;
-                wordList[numWords] = myWord;
-            }
-
-            else{
+            if(myChar == ' '){
                 endOfWord = 1;
             }
         }
 
         else{
-            // fprintf(stdout, "2");
-            if(myChar == ' '){
+            if(myChar == ' ') {
                 continue;
             }
-
             wordList[numWords++] = myWord;
-            fprintf(stdout, "N WORDS: ");
-            fprintf(stdout, "%d", numWords);
 
             myWord = (char *)malloc(sizeof(char *));
             if(myWord == NULL) {
@@ -119,28 +117,47 @@ void run2(){
                 exit(1);
             }
 
-            wordList = (char **)realloc(wordList, (numWords + 1) * sizeof(char));
+            wordList = (char **)realloc(wordList, (numWords + 1) * sizeof(char *));
             if(wordList == NULL){
                 fprintf(stderr, "ERROR with memory allocation, exiting program");
                 exit(1);
             }
 
+            prevNumChars = numChars;
             numChars = 0;
             myWord[numChars++] = myChar;
-            wordList[numWords] = myWord;
             endOfWord = 0;
         }
     }
 
-    // fprintf(stdout, "3");
-    qsort(wordList, numWords + 1, sizeof(char**), compare);
-    fprintf(stdout, "####### NUMBER OF WORDS: ########");
-    fprintf(stdout, "%d", numWords);
-    for(int i = 0; i < numWords; i++){
-        fprintf(stdout, "%s", wordList[i]);
-    }
-    // fprintf(stdout, "4");
+    qsort(wordList, numWords, sizeof(char**), compare);
+    int i;
+    for (i = 0; i < numWords; i++) {
 
+        int j = 0;
+        while(1) {
+
+            // print character by character and catch any errors
+            if (putchar(wordList[i][j]) == EOF) {
+                fprintf(stderr, "Error printing characters.");
+                exit(1);
+            }
+
+            // skip to the next string if space byte is detected
+            if (wordList[i][j] == ' ') { break; }
+
+            j++;
+
+        }
+
+        // free memory holding each string
+        free(wordList[i]);
+    }
+
+    // free memory holding array of strings
+    free(wordList);
+
+    exit(0);
 }
 
 
@@ -153,8 +170,6 @@ void checkForInputError(){
 
 short checkForEndOfFile(char c){
     if(c == EOF){
-        // fprintf(stdout, "HERERERERERE");
-        // fprintf(stdout, "File reading is completed\n");
         return 1;
     }
     return 0;
