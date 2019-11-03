@@ -131,32 +131,22 @@ void run2(){
     }
 
     qsort(wordList, numWords, sizeof(char**), compare);
-    int i;
-    for (i = 0; i < numWords; i++) {
-
-        int j = 0;
-        while(1) {
-
-            // print character by character and catch any errors
-            if (putchar(wordList[i][j]) == EOF) {
+    for (int x = 0; x < numWords; x++){
+        int y = 0;
+        while(1){
+            if (putchar(wordList[x][y]) == EOF){
                 fprintf(stderr, "Error printing characters.");
                 exit(1);
             }
 
-            // skip to the next string if space byte is detected
-            if (wordList[i][j] == ' ') { break; }
-
-            j++;
-
+            if (wordList[x][y] == ' '){
+                break;
+            }
+            y++;
         }
-
-        // free memory holding each string
-        free(wordList[i]);
+        free(wordList[x]);
     }
-
-    // free memory holding array of strings
     free(wordList);
-
     exit(0);
 }
 
