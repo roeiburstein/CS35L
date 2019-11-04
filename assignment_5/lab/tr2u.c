@@ -29,8 +29,8 @@ int main(int argc, const char *argv[]) {
             fprintf(stderr, "ERROR, problem reading input, exiting program");
             exit(1);
         }
-        ssize_t result = -1;
-        while(result != 0) {
+        ssize_t result = 1;
+        while(result > 0) {
             result = read(0, &c, sizeof(char));
             if(asciiArray[c] == 1) {
                 size_t charIndex = -1;
@@ -39,10 +39,14 @@ int main(int argc, const char *argv[]) {
                         charIndex = j;
                     }
                 }
-                write(1, &to[charIndex], sizeof(char));
+                if(result != 0) {
+                    write(1, &to[charIndex], sizeof(char));
+                }
             }
             else {
-                write(1, &c, sizeof(char));
+                if(result != 0) {
+                    write(1, &c, sizeof(char));
+                }
             }
         }
     }
