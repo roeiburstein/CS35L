@@ -4,7 +4,7 @@
 	Edited timespec.h to fix error made by saving 8 byte data into 4 byte int
   datatype. Created chain of if statements to compare a.tv_sec and b.tv_sec, and
   if they were equal, compared a.tv_nsec and b.tv_nsec.
-  
+
 --- coreutils-with-bug/lib/timespec.h	2019-10-31 16:37:30.871124000 -0700
 +++ coreutils-without-bug/lib/timespec.h	2019-10-31 16:35:58.563627000 -0700
 @@ -45,8 +45,29 @@
