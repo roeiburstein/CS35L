@@ -7,7 +7,7 @@ int main(int argc, const char *argv[]) {
         const char * from = argv[1], * to = argv[2];
         size_t fromLen = strlen(from);
         size_t toLen = strlen(to);
-        short asciiArray[255] = {0};
+        char asciiArray[255] = {0};
 
         if(fromLen != toLen) {
             fprintf(stderr, "ERROR, first and second arguments are different lengths, exiting program");
@@ -34,7 +34,7 @@ int main(int argc, const char *argv[]) {
                 }
                 putchar(to[charIndex]);
             }
-            else{
+            else {
                 putchar(c);
             }
         }
