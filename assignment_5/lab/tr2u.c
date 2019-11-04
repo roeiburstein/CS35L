@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 
 int main(int argc, const char *argv[]) {
@@ -23,8 +24,14 @@ int main(int argc, const char *argv[]) {
         }
 
         char c;
-        while(c != EOF) {
-            c = getchar();
+
+        if(read(0, &c, sizeof(char)) < 0) {
+            fprintf(stderr, "ERROR, problem reading input, exiting program");
+            exit(1);
+        }
+        ssize_t result = -1;
+        while(result != 0) {
+            result = read(0, &c, sizeof(char));
             if(asciiArray[c] == 1) {
                 size_t charIndex = -1;
                 for(size_t j = 0; j < fromLen; j++) {
@@ -32,10 +39,10 @@ int main(int argc, const char *argv[]) {
                         charIndex = j;
                     }
                 }
-                putchar(to[charIndex]);
+                write(1, &to[charIndex], sizeof(char));
             }
-            else{
-                putchar(c);
+            else {
+                write(1, &c, sizeof(char));
             }
         }
     }
