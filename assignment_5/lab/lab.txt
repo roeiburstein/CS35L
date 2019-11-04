@@ -1,0 +1,45 @@
+I began the lab by reading the relevant documentation on topics that will be
+used. I refreshed my knowledge on the usage of the tr command and ran several
+test cases on tr to understand what it does and what its output is supposed
+to be.
+
+I read up on getchar and putchar so that I could implement them into my
+tr2b.c program. I was familiar with strings in C from the previous assignment
+so I implemented two char pointers to create a list of characters. I also
+included string.h so that I could use the function:
+size_t strlen(const char *__s);
+in order to get the length of the input string.
+
+My next problem to tackle was the errors, and I wanted to make sure that
+the first argument (from) does not have repeating characters and that the
+two arguments (from) and (to) have the same number of characters. The latter
+case was simple, as I had the strlen() function and could just compare the
+two string lengths. Checking for repeating characters was more difficult, and
+I wanted to do this in linear time complexity rather than quadratic time
+complexity.
+
+In order to do this, I created a list of 255 chars to represent all the
+possible ASCII values and set every element to 0. Then I looped through the
+characters in (from) and if I see a character, I change it's associated
+index in the list to 1. If a character's index is checked in the list and
+its value is already 1, I know there are duplicate characters and I exit the
+program. This is similar to a hash table, but I know the possible sample size
+and it is small enough where space was not an issue (255 bytes).
+
+This ended up being useful later when I had to replace the characters because
+I had a list containing all the characters that needed to be replaced. This
+allowed me to save time by checking if a character needed replacing in O(1)
+time by checking if its index in the char list was 1. Then I used getchar()
+to get each individual character in the tester file and putchar() to put the
+character as output in stdout. If the current character was present in the
+char list, I found its index by looping through the character list and
+then put the character in the corresponding index in (to).
+
+Creating tr2u.c was very simple to implement as I already did most of the
+work when creating tr2b.c. I read up on read and write to understand how to
+use their syntax, and adapted my loop to exit for when an output of read less
+than 0 occurs. I then used write() instead of putchar() in the same way I
+used read() instead of getchar() with the proper syntax. I ran my program
+and it worked perfectly.
+
+
