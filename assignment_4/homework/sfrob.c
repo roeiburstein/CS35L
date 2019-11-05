@@ -81,6 +81,7 @@ void run2(){
         myChar = getc(stdin);
         checkForInputError();
         if(checkForEndOfFile(myChar)){
+            wordList[numWords++] = myWord;
             if(wordList[numWords - 1][prevNumChars - 1] != ' ') {
 
                 myWord = (char*) realloc(myWord, (numChars + 1) * sizeof(char));
