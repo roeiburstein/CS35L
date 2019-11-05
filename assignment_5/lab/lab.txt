@@ -42,4 +42,40 @@ than 0 occurs. I then used write() instead of putchar() in the same way I
 used read() instead of getchar() with the proper syntax. I ran my program
 and it worked perfectly.
 
+Then I ran the strace command to compare the system calls issued by both 
+tr2b.c and tr2u.c. I ran the commands strace –o strace_output ./tr2b ‘AB’
+‘XY’ < input.txt and strace –o strace_output2 ./tr2u ‘AB’ ‘XY’ < input.txt.
 
+My next step was to create a large file (over 5 MB) to use as input for my
+program to test for speed and accuracy. The first thing I did was generate
+a large text file with random characters using random.org. This created a
+file with characters a-z, A-Z, numbers 0-9, and the space character. Since
+each character is 1 byte, I generated about 6.5 million characters to use
+as input. Both my tr2u and tr2b ran this with no problem. Then I looked at
+The assignment hints and created a large text file with the command:
+head --bytes=# /dev/urandom > output.txt. I tested this file as well and
+my C scripts ran this successfully as well.
+
+The final step of the lab is to compare the times of tr2b and tr2u on the
+same file with the same arguments. To do this, I ran the commands:
+
+time ./tr2b "abc" "xyz" < tester\ files/5milbytes.txt 
+
+and
+
+time ./tr2u "abc" "xyz" < tester\ files/5milbytes.txt 
+
+respectively. The following are my results for both tr2b and tr2u:
+
+tr2b:
+real	0m1.160s
+user	0m0.233s
+sys	0m0.474s
+
+tr2u:
+real	0m12.376s
+user	0m1.818s
+sys	0m10.531s
+
+As my results show, the unbuffered version was much slower than the 
+buffered version. 
