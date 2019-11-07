@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+#include <ctype.h>
 
 const int LESS = -1;
 const int SAME = 0;
 const int GREATER = 1;
-
+char ignore_case = 0;
 
 char unfrobChar(const char c);
 int frobcmp(char const * a, char const * b);
-void run2();
+void run();
 short checkForEndOfFile(char c);
 int compare(const void * a, const void * b);
 
@@ -57,14 +59,38 @@ int frobcmp(char const * a, char const * b) {
  * returns result of the character exclusive OR 42 (101010 in binary)
  */
 char unfrobChar(const char c){
+    if(!ignore_case) {
+        return toupper(c ^ 42);
+    }
     return (c ^ 42);
 };
 
-void run2(){
-    // printf("I ran run2\n");
+short checkForEndOfFile(char c){
+    if(c == EOF){
+        return 1;
+    }
+    return 0;
+}
+
+int main(int argc, char** argv){
+    if (argc > 2){
+        fprintf(stderr, "ERROR too many arguments");
+        exit(1);
+    }
+
+    if (argc == 2 && strcmp(argv[1], "-f") == 0){
+        ignore_case = 1;
+    }
+
+    else if (argc == 2 && strcmp(argv[1], "-f") != 0) {
+        fprintf(stderr, "ERROR only -f argument allowed");
+        exit(1);
+    }
+
     char myChar;
     char * myWord = (char *)malloc(sizeof(char));
     char ** wordList = (char **)malloc(sizeof(char *));
+
     short endOfWord = 0; // 0 if it is NOT the end of the word, 1 if it IS the end of the word
     int numChars = 0;  // number of characters in the current word
     int numWords = 0; // number of words in the word list
@@ -155,13 +181,3 @@ void run2(){
     exit(0);
 }
 
-short checkForEndOfFile(char c){
-    if(c == EOF){
-        return 1;
-    }
-    return 0;
-}
-
-int main(void){
-    run2();
-};
