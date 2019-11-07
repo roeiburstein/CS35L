@@ -139,8 +139,8 @@ void run2(){
     for (int x = 0; x < numWords; x++){
         int y = 0;
         while(1){
-            if (putchar(wordList[x][y]) == EOF){
-                fprintf(stderr, "Error printing characters.");
+            if (write(1, &wordList[x][y], sizeof(char)) < 0){
+                fprintf(stderr, "ERROR with printing character, exiting program");
                 exit(1);
             }
 
