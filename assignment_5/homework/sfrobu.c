@@ -59,7 +59,7 @@ int frobcmp(char const * a, char const * b) {
  * returns result of the character exclusive OR 42 (101010 in binary)
  */
 char unfrobChar(const char c){
-    if(!ignore_case) {
+    if(ignore_case) {
         return toupper(c ^ 42);
     }
     return (c ^ 42);
