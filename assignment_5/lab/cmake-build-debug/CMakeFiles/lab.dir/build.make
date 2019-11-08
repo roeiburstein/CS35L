@@ -57,27 +57,27 @@ include CMakeFiles/lab.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/lab.dir/flags.make
 
-CMakeFiles/lab.dir/main.c.o: CMakeFiles/lab.dir/flags.make
-CMakeFiles/lab.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/roeibustein/Documents/CS35L/assignment_5/lab/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/lab.dir/main.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/lab.dir/main.c.o   -c /Users/roeibustein/Documents/CS35L/assignment_5/lab/main.c
+CMakeFiles/lab.dir/tr2b.c.o: CMakeFiles/lab.dir/flags.make
+CMakeFiles/lab.dir/tr2b.c.o: ../tr2b.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/roeibustein/Documents/CS35L/assignment_5/lab/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/lab.dir/tr2b.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/lab.dir/tr2b.c.o   -c /Users/roeibustein/Documents/CS35L/assignment_5/lab/tr2b.c
 
-CMakeFiles/lab.dir/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/lab.dir/main.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/roeibustein/Documents/CS35L/assignment_5/lab/main.c > CMakeFiles/lab.dir/main.c.i
+CMakeFiles/lab.dir/tr2b.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/lab.dir/tr2b.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/roeibustein/Documents/CS35L/assignment_5/lab/tr2b.c > CMakeFiles/lab.dir/tr2b.c.i
 
-CMakeFiles/lab.dir/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/lab.dir/main.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/roeibustein/Documents/CS35L/assignment_5/lab/main.c -o CMakeFiles/lab.dir/main.c.s
+CMakeFiles/lab.dir/tr2b.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/lab.dir/tr2b.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/roeibustein/Documents/CS35L/assignment_5/lab/tr2b.c -o CMakeFiles/lab.dir/tr2b.c.s
 
 # Object files for target lab
 lab_OBJECTS = \
-"CMakeFiles/lab.dir/main.c.o"
+"CMakeFiles/lab.dir/tr2b.c.o"
 
 # External object files for target lab
 lab_EXTERNAL_OBJECTS =
 
-lab: CMakeFiles/lab.dir/main.c.o
+lab: CMakeFiles/lab.dir/tr2b.c.o
 lab: CMakeFiles/lab.dir/build.make
 lab: CMakeFiles/lab.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/roeibustein/Documents/CS35L/assignment_5/lab/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable lab"

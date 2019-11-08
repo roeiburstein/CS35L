@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <ctype.h>
+#include <sys/stat.h>
+
 
 const int LESS = -1;
 const int SAME = 0;
@@ -11,7 +13,6 @@ char ignore_case = 0;
 
 char unfrobChar(const char c);
 int frobcmp(char const * a, char const * b);
-void run();
 short checkForEndOfFile(char c);
 int compare(const void * a, const void * b);
 
@@ -73,6 +74,7 @@ short checkForEndOfFile(char c){
 }
 
 int main(int argc, char** argv){
+    fprintf(stdout, "hi!");
     if (argc > 2){
         fprintf(stderr, "ERROR too many arguments");
         exit(1);
@@ -95,31 +97,74 @@ int main(int argc, char** argv){
     int numChars = 0;  // number of characters in the current word
     int numWords = 0; // number of words in the word list
     int prevNumChars = -1; // number of characters of previous word
+    ssize_t result;
 
     // checks to see if memory couldn't be allocated for myWord or wordList
     if(myWord == NULL || wordList == NULL){
         fprintf(stderr, "ERROR with memory allocation, exiting program");
         exit(1);
     }
-    wordList[0] = myWord;
-    ssize_t result;
-    while(1){
-        result = read(0, &myChar, sizeof(char));
-        if(result < 0) {
-            fprintf(stderr, "ERROR, problem reading input, exiting program");
+
+    struct stat file;
+    if (fstat(0, &file) < 0){
+        fprintf(stderr, "ERROR no file found");
+        exit(1);
+    }
+
+    char * buffer;
+    int buffCount = 0, maxBuffSize = 0;
+
+    if(S_ISREG(file.st_mode)){
+        buffer = (char *)malloc(file.st_size * sizeof(char));
+        if(buffer == NULL){
+            fprintf(stderr, "ERROR with memory allocation, exiting program");
             exit(1);
         }
 
-        else if(result == 0){
-            wordList[numWords++] = myWord;
-            if(wordList[numWords - 1][prevNumChars - 1] != ' ') {
+        result = read(0, buffer, file.st_size);
+        if(result < 0){
+            fprintf(stderr, "ERROR problem reading input, exiting program");
+            exit(1);
+        }
+        maxBuffSize = file.st_size;
+    }
 
-                myWord = (char*) realloc(myWord, (numChars + 1) * sizeof(char));
-                myWord[numChars] = ' ';
-                wordList[numWords - 1] = myWord;
+    if(buffCount > maxBuffSize - 1){
+        result = read(0, &myWord, sizeof(char));
+        if(result < 0){
+            fprintf(stderr, "ERROR problem reading input, exiting program");
+            exit(1);
+        }
+    }
 
+    else{
+        myWord[numChars++] = buffer[buffCount++];
+        result = 1;
+    }
+    while(1){
+
+        if(buffCount > maxBuffSize - 1){
+            result = read(0, &myChar, sizeof(char));
+            if(result < 0){
+                fprintf(stderr, "ERROR problem reading input, exiting program");
+                exit(1);
             }
-            break;
+
+            else if(result == 0){
+                wordList[numWords++] = myWord;
+                if(wordList[numWords - 1][prevNumChars - 1] != ' ') {
+
+                    myWord = (char*) realloc(myWord, (numChars + 1) * sizeof(char));
+                    myWord[numChars] = ' ';
+                    wordList[numWords - 1] = myWord;
+
+                }
+                break;
+            }
+        }
+
+        else{
+            myChar = buffer[buffCount++];
         }
 
         // if we are still adding characters to the current word
@@ -136,9 +181,19 @@ int main(int argc, char** argv){
             }
         }
 
+        // if we have reached the end of our current word
         else{
-            if(myChar == ' ') {
-                continue;
+            while (myChar == ' ') {
+                if(buffCount >= maxBuffSize){
+                    result = read(0, &myChar, sizeof(char));
+                    if(result < 0){
+                        fprintf(stderr, "ERROR problem reading input, exiting program");
+                        exit(1);
+                    }
+                }
+                else{
+                    myChar = buffer[buffCount++];
+                }
             }
             wordList[numWords++] = myWord;
 

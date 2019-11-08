@@ -123,32 +123,32 @@ lab/fast:
 	$(MAKE) -f CMakeFiles/lab.dir/build.make CMakeFiles/lab.dir/build
 .PHONY : lab/fast
 
-main.o: main.c.o
+tr2b.o: tr2b.c.o
 
-.PHONY : main.o
+.PHONY : tr2b.o
 
 # target to build an object file
-main.c.o:
-	$(MAKE) -f CMakeFiles/lab.dir/build.make CMakeFiles/lab.dir/main.c.o
-.PHONY : main.c.o
+tr2b.c.o:
+	$(MAKE) -f CMakeFiles/lab.dir/build.make CMakeFiles/lab.dir/tr2b.c.o
+.PHONY : tr2b.c.o
 
-main.i: main.c.i
+tr2b.i: tr2b.c.i
 
-.PHONY : main.i
+.PHONY : tr2b.i
 
 # target to preprocess a source file
-main.c.i:
-	$(MAKE) -f CMakeFiles/lab.dir/build.make CMakeFiles/lab.dir/main.c.i
-.PHONY : main.c.i
+tr2b.c.i:
+	$(MAKE) -f CMakeFiles/lab.dir/build.make CMakeFiles/lab.dir/tr2b.c.i
+.PHONY : tr2b.c.i
 
-main.s: main.c.s
+tr2b.s: tr2b.c.s
 
-.PHONY : main.s
+.PHONY : tr2b.s
 
 # target to generate assembly for a file
-main.c.s:
-	$(MAKE) -f CMakeFiles/lab.dir/build.make CMakeFiles/lab.dir/main.c.s
-.PHONY : main.c.s
+tr2b.c.s:
+	$(MAKE) -f CMakeFiles/lab.dir/build.make CMakeFiles/lab.dir/tr2b.c.s
+.PHONY : tr2b.c.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... lab"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... tr2b.o"
+	@echo "... tr2b.i"
+	@echo "... tr2b.s"
 .PHONY : help
 
 

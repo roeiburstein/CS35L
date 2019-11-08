@@ -78,7 +78,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/roeibustein/Documents/CS35L/assignment_5/lab/main.c">
+		<Unit filename="/Users/roeibustein/Documents/CS35L/assignment_5/lab/tr2b.c">
 			<Option target="lab"/>
 		</Unit>
 		<Unit filename="/Users/roeibustein/Documents/CS35L/assignment_5/lab/CMakeLists.txt">

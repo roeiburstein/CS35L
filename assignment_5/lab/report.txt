@@ -1,0 +1,149 @@
+Lab.txt:
+I began the lab by reading the relevant documentation on topics that will be
+used. I refreshed my knowledge on the usage of the tr command and ran several
+test cases on tr to understand what it does and what its output is supposed
+to be.
+
+I read up on getchar and putchar so that I could implement them into my
+tr2b.c program. I was familiar with strings in C from the previous assignment
+so I implemented two char pointers to create a list of characters. I also
+included string.h so that I could use the function:
+size_t strlen(const char *__s);
+in order to get the length of the input string.
+
+My next problem to tackle was the errors, and I wanted to make sure that
+the first argument (from) does not have repeating characters and that the
+two arguments (from) and (to) have the same number of characters. The latter
+case was simple, as I had the strlen() function and could just compare the
+two string lengths. Checking for repeating characters was more difficult, and
+I wanted to do this in linear time complexity rather than quadratic time
+complexity.
+
+In order to do this, I created a list of 255 chars to represent all the
+possible ASCII values and set every element to 0. Then I looped through the
+characters in (from) and if I see a character, I change it's associated
+index in the list to 1. If a character's index is checked in the list and
+its value is already 1, I know there are duplicate characters and I exit the
+program. This is similar to a hash table, but I know the possible sample size
+and it is small enough where space was not an issue (255 bytes).
+
+This ended up being useful later when I had to replace the characters because
+I had a list containing all the characters that needed to be replaced. This
+allowed me to save time by checking if a character needed replacing in O(1)
+time by checking if its index in the char list was 1. Then I used getchar()
+to get each individual character in the tester file and putchar() to put the
+character as output in stdout. If the current character was present in the
+char list, I found its index by looping through the character list and
+then put the character in the corresponding index in (to).
+
+Creating tr2u.c was very simple to implement as I already did most of the
+work when creating tr2b.c. I read up on read and write to understand how to
+use their syntax, and adapted my loop to exit for when an output of read less
+than 0 occurs. I then used write() instead of putchar() in the same way I
+used read() instead of getchar() with the proper syntax. I ran my program
+and it worked perfectly.
+
+Then I ran the strace command to compare the system calls issued by both 
+tr2b.c and tr2u.c. I ran the commands strace –o strace_output ./tr2b ‘AB’
+‘XY’ < input.txt and strace –o strace_output2 ./tr2u ‘AB’ ‘XY’ < input.txt.
+
+My next step was to create a large file (over 5 MB) to use as input for my
+program to test for speed and accuracy. The first thing I did was generate
+a large text file with random characters using random.org. This created a
+file with characters a-z, A-Z, numbers 0-9, and the space character. Since
+each character is 1 byte, I generated about 6.5 million characters to use
+as input. Both my tr2u and tr2b ran this with no problem. Then I looked at
+The assignment hints and created a large text file with the command:
+head --bytes=# /dev/urandom > output.txt. I tested this file as well and
+my C scripts ran this successfully as well.
+
+The final step of the lab is to compare the times of tr2b and tr2u on the
+same file with the same arguments. To do this, I ran the commands:
+
+time ./tr2b "abc" "xyz" < tester\ files/5milbytes.txt 
+
+and
+
+time ./tr2u "abc" "xyz" < tester\ files/5milbytes.txt 
+
+respectively. The following are my results for both tr2b and tr2u:
+
+tr2b:
+real	0m1.160s
+user	0m0.233s
+sys	0m0.474s
+
+tr2u:
+real	0m12.376s
+user	0m1.818s
+sys	0m10.531s
+
+As my results show, the unbuffered version was much slower than the 
+buffered version.
+
+_____________________________________________________________________________
+Report.txt
+
+HOMEWORK:
+
+Command: time ./sfrob < tester_files/0_words.txt | od -ta
+
+real	0m0.006s
+user	0m0.003s
+sys	0m0.005s
+
+
+Command: time ./sfrobu < tester_files/0_words.txt | od -ta
+
+real	0m0.016s
+user	0m0.004s
+sys	0m0.008s
+
+
+Command: time ./sfrob < tester_files/100_words.txt | od -ta
+
+real	0m0.015s
+user	0m0.004s
+sys	0m0.007s
+
+
+Command: time ./sfrobu < tester_files/100_words.txt | od -ta
+real	0m0.017s
+user	0m0.004s
+sys	0m0.008s
+
+
+Command: time ./sfrob < tester_files/10000_words.txt | od -ta
+
+real	0m0.068s
+user	0m0.042s
+sys	0m0.016s
+
+
+Command: time ./sfrobu < tester_files/10000_words.txt | od -ta
+
+real	0m0.132s
+user	0m0.077s
+sys	0m0.089s
+
+
+Command: time ./sfrob < tester_files/1000000_words.txt | od -ta
+
+real	0m4.753s
+user	0m4.629s
+sys	0m0.466s
+
+
+Command: time ./sfrobu < tester_files/1000000_words.txt | od -ta
+
+real	0m11.533s
+user	0m7.854s
+sys	0m7.940s
+
+Question:
+Suppose the assignment were changed so that the rewritten program also had to
+use system calls rather than <stdlib.h> memory allocation functions such as
+malloc, reallocfree. Which system calls would the program use, and what would
+the calls' arguments look like?
+
+After running strace on sfrob and sfrobu

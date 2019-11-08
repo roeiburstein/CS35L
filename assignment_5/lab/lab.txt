@@ -78,4 +78,4 @@ user	0m1.818s
 sys	0m10.531s
 
 As my results show, the unbuffered version was much slower than the 
-buffered version. 
+buffered version.

@@ -1,2 +1,4 @@
 gcc -std=c11 tr2b.c -o tr2b
 ./tr2b "abc" "xyz" < tester.txt
+
+printf '*~BO *{_CIA *hXE]D *LER #@_GZY #E\\OX #^BO #FKPS #NEM\4' | ./sfrob | od -ta
