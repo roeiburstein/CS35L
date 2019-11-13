@@ -1,0 +1,33 @@
+The first thing I did was read the instructions and look at this week's
+slides to get a better understanding of what this lab assignment entails.
+
+After that, the first step said to compile, build and run the program
+simpgmp.c, so I ran the command:
+wget http://web.cs.ucla.edu/classes/fall19/cs35L/assign/simpgmp.c
+to do that. The link above was obtained from the assignment website.
+
+After that, I wanted to build the program, and to do this I ran the command:
+gcc -lgmp -std=c11 simpgmp.c -o simpgmp. The -lgmp linker flag was because
+the program uses GMP, so for building it you should use the flag.
+
+Then I read through simpgmp.c using the command: emacs simpgmp.c to look
+through the code and understand how the program takes in input. Then to test
+out the first operation (2^24) I ran the command: ./simpgmp 24. My result was
+16,777,216, and then to test 2^(2^24), I ran the command ./simpgmp 16777216.
+I ran the command ./simpgmp 16777216 | wc -m after looking at the manual page
+of wc (by running man wc) to verify that the number had 5,050,446 decimal
+digits. In order to get the first four and last four characters of the output,
+I ran the command var=$(./simpgmp 16777216) to save the output into a
+variable.Then, I ran the command echo ${var:0:4}. This printed out 1818 (first
+four characters). In order to get the last four characters of the output, I
+ran the command: echo ${var:5050442:5050447}. This printed out 7536 (last four
+characters).
+
+Next, I ran the ldd command to check which libraries my simpgmp program was
+using by running the command ldd simpgmp. Below is my output:
+
+    linux-vdso.so.1 =>  (0x00007ffcb0dc3000)
+	libgmp.so.10 => /lib64/libgmp.so.10 (0x00007f923f526000)
+	libc.so.6 => /lib64/libc.so.6 (0x00007f923f158000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f923f79e000)
+
