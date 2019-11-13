@@ -46,6 +46,8 @@ and it worked perfectly.
 Then I ran the strace command to compare the system calls issued by both 
 tr2b.c and tr2u.c. I ran the commands strace –o strace_output ./tr2b ‘AB’
 ‘XY’ < input.txt and strace –o strace_output2 ./tr2u ‘AB’ ‘XY’ < input.txt.
+I noticed that strace_output2 had significantly more commands than the normal
+strace, whicg
 
 My next step was to create a large file (over 5 MB) to use as input for my
 program to test for speed and accuracy. The first thing I did was generate
@@ -55,7 +57,7 @@ each character is 1 byte, I generated about 6.5 million characters to use
 as input. Both my tr2u and tr2b ran this with no problem. Then I looked at
 The assignment hints and created a large text file with the command:
 head --bytes=# /dev/urandom > output.txt. I tested this file as well and
-my C scripts ran this successfully as well.
+I received an error, so I decided to stick with the 5milbytes.txt file.
 
 The final step of the lab is to compare the times of tr2b and tr2u on the
 same file with the same arguments. To do this, I ran the commands:
@@ -146,4 +148,10 @@ use system calls rather than <stdlib.h> memory allocation functions such as
 malloc, reallocfree. Which system calls would the program use, and what would
 the calls' arguments look like?
 
-After running strace on sfrob and sfrobu
+To find out the system call differences for sfrob.c and sfrobu.c, I can run
+the same command as in the lab assignment, strace.
+
+After running strace, I compared the differences in the number of system
+calls for each program and saw that sfrobu.c had more system calls than
+sfrob.c. This also explains why it took longer to run sfrobu.c than sfrob.c
+for all my test cases.
