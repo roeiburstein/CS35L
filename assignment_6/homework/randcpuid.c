@@ -16,7 +16,7 @@ cpuid (unsigned int leaf, unsigned int subleaf)
     return result;
 }
 
-extern _Bool
+extern _Bool // Originally static _Bool
 rdrand_supported (void) {
     struct cpuid extended = cpuid (1, 0);
     return (extended.ecx & bit_RDRND) != 0;

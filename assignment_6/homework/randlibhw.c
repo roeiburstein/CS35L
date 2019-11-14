@@ -1,10 +1,11 @@
 #include "randlib.h"
-#include<immintrin.h>
+#include <immintrin.h>
 
-extern unsigned long long
-rand64 (void) {
+/* Return a random value */
+extern unsigned long long // Changed static to extern
+rand64(void) {
     unsigned long long int x;
-    while (! _rdrand64_step (&x))
+    while (!_rdrand64_step (&x))
         continue;
     return x;
 }
