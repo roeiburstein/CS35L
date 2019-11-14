@@ -1,18 +1,9 @@
-/* Generate N bytes of random output.  */
-
-/* When generating output this program uses the x86-64 RDRAND
-   instruction if available to generate random numbers, falling back
-   on /dev/urandom and stdio otherwise.
-   This program is not portable.  Compile it with gcc -mrdrnd for a
-   x86-64 machine.
-*/
-
 #include "randcpuid.h"
 #include <errno.h>
 #include <stdbool.h>
-#include <dlfcn.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <dlfcn.h>
 
 static bool
 writebytes (unsigned long long x, int nbytes)
@@ -59,40 +50,38 @@ main (int argc, char **argv)
 
     /* Now that we know we have work to do, arrange to use the
        appropriate library.  */
-
     unsigned long long (*rand64) (void);
-    void* dynamicLibHandler; // declaring in this scope because we must call dlclose on
-    // the handler.
+    void * handler; // dynamic handler
 
-    if (rdrand_supported ())
-    {
-        dynamicLibHandler = dlopen("./randlibhw.so", RTLD_NOW);
-        if (!dynamicLibHandler)
-        {
-            fprintf(stderr, "Could not open randlibhw.so: %s. Exiting...\n", dlerror());
+    if (rdrand_supported ()) {
+        handler = dlopen("./randlibhw.so", RTLD_NOW);
+        if (! handler) {
+            fprintf(stderr, "ERROR, could not open randlibhw.s, exiting program"
+                            "\n", dlerror());
             exit(1);
         }
-        rand64 = dlsym(dynamicLibHandler, "rand64");
-        char* error;
-        if ((error = dlerror()) != NULL)
-        {
-            fprintf(stderr, "Could not find rand64 function: %s. Exiting...\n", error);
+        rand64 = dlsym(handler, "rand64");
+        char * error;
+        if ((error = dlerror()) != NULL) {
+            fprintf(stderr, "ERROR, could not find rand64, exiting program\n",
+                    error);
             exit(1);
         }
     }
-    else
-    {
-        dynamicLibHandler = dlopen("./randlibsw.so", RTLD_NOW);
-        if (!dynamicLibHandler)
-        {
-            fprintf(stderr, "Could not open randlibsw.so: %s. Exiting...\n", dlerror());
+
+    else {
+        handler = dlopen("./randlibsw.so", RTLD_NOW);
+
+        if (! handler) {
+            fprintf(stderr, "ERROR, could not open randlibsw.so, exiting program"
+                            "\n", dlerror());
             exit(1);
         }
-        rand64 = dlsym(dynamicLibHandler, "rand64");
-        char* error;
-        if ((error = dlerror()) != NULL)
-        {
-            fprintf(stderr, "Could not find rand64 function: %s. Exiting...\n", error);
+        rand64 = dlsym(handler, "rand64");
+        char * error;
+        if ((error = dlerror()) != NULL) {
+            fprintf(stderr, "ERROR, could not find rand64, exiting program\n",
+                    error);
             exit(1);
         }
     }
@@ -123,6 +112,6 @@ main (int argc, char **argv)
         return 1;
     }
 
-    dlclose(dynamicLibHandler);
+    dlclose(handler);
     return 0;
 }
