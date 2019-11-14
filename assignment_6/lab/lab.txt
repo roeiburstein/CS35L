@@ -1,0 +1,88 @@
+The first thing I did was read the instructions and look at this week's
+slides to get a better understanding of what this lab assignment entails.
+
+After that, the first step said to compile, build and run the program
+simpgmp.c, so I ran the command:
+wget http://web.cs.ucla.edu/classes/fall19/cs35L/assign/simpgmp.c
+to do that. The link above was obtained from the assignment website.
+
+After that, I wanted to build the program, and to do this I ran the command:
+gcc -lgmp -std=c11 simpgmp.c -o simpgmp. The -lgmp linker flag was because
+the program uses GMP, so for building it you should use the flag.
+
+Then I read through simpgmp.c using the command: emacs simpgmp.c to look
+through the code and understand how the program takes in input. Then to test
+out the first operation (2^24) I ran the command: ./simpgmp 24. My result was
+16,777,216, and then to test 2^(2^24), I ran the command ./simpgmp 16777216.
+I ran the command ./simpgmp 16777216 | wc -m after looking at the manual page
+of wc (by running man wc) to verify that the number had 5,050,446 decimal
+digits. In order to get the first four and last four characters of the output,
+I ran the command var=$(./simpgmp 16777216) to save the output into a
+variable.Then, I ran the command echo ${var:0:4}. This printed out 1818 (first
+four characters). In order to get the last four characters of the output, I
+ran the command: echo ${var:5050442:5050447}. This printed out 7536 (last four
+characters).
+
+Next, I ran the ldd command to check which libraries my simpgmp program was
+using by running the command ldd simpgmp. Below is my output:
+
+    linux-vdso.so.1 =>  (0x00007ffcb0dc3000)
+	libgmp.so.10 => /lib64/libgmp.so.10 (0x00007f923f526000)
+	libc.so.6 => /lib64/libc.so.6 (0x00007f923f158000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f923f79e000)
+
+After that, I ran the strace command on my simpgmp program with the command:
+strace ./simpgmp. My output consisted of many system calls, and among those
+are several system calls related to dynamic, three of which are the following:
+  - access()
+  - open()
+  - close()
+
+The access() system call takes
+
+The open() system call takes in the pathname of the file and permissions and
+returns a handle that the process will use to reference the file.
+
+Then, I ran the command ls /usr/bin/ | awk '(NR-905357231)%251 == 0' as
+specified in the assignment instructions to get commands to investigate. My
+commands were the following:
+
+ - chsh.ORIG
+ - ex
+ - gtk3-demo
+ - kdostartupconfig4
+ - mapscrn
+ - otfdump
+ - pulseaudio
+ - spam
+ - wc
+
+For chsh.ORIG, I received an error that stated: ldd: error: you do not have
+read permission for `/usr/bin/chsh.ORIG'
+
+For every other command, I got an output of many library dependencies
+
+Finally, to sort the list of the dynamic libraries printed, I created an empty
+text file called my_file.txt. Then in order to put the ldd outputs into the
+file, I ran the following commands:
+
+ldd /usr/bin/ex > my_file.txt
+ldd /usr/bin/gtk3-demo >> my_file.txt
+ldd /usr/bin/kdostartupconfig4 >> my_file.txt
+ldd /usr/bin/mapscrn >> my_file.txt
+ldd /usr/bin/otfdump >> my_file.txt
+ldd /usr/bin/pulseaudio >> my_file.txt
+ldd /usr/bin/spam >> my_file.txt
+ldd /usr/bin/wc >> my_file.txt
+
+Then, to remove everything before and including the arrow (=>), I used the
+command sed -i 's/.*>//g' my_file.txt. I had some leading spaces after that so
+I removed them with the command
+awk '$1=$1' my_file.txt > tmp.txt && mv tmp.txt my_file.txt
+Then, I had some lines with just memory addresses, so I removed them with the
+command: sed -i '/^(/ d' my_file.txt
+Then, to remove the address after the filepaths, I used the command:
+sed -i 's/ .*//' my_file.txt
+Finally, to sort alphabetically and remove duplicates, I used the command:
+sort -u my_file.txt > tmp.txt && mv tmp.txt my_file.txt
+
