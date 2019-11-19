@@ -56,8 +56,8 @@ main (int argc, char **argv)
     if (rdrand_supported ()) {
         handler = dlopen("./randlibhw.so", RTLD_NOW);
         if (! handler) {
-            fprintf(stderr, "ERROR, could not open randlibhw.s, exiting program"
-                            "\n", dlerror());
+            fprintf(stderr,
+                    "ERROR, could not open randlibhw.s, exiting program\n", dlerror());
             exit(1);
         }
         rand64 = dlsym(handler, "rand64");
@@ -73,15 +73,15 @@ main (int argc, char **argv)
         handler = dlopen("./randlibsw.so", RTLD_NOW);
 
         if (! handler) {
-            fprintf(stderr, "ERROR, could not open randlibsw.so, exiting program"
-                            "\n", dlerror());
+            fprintf(stderr,
+                    "ERROR, could not open randlibsw.so, exiting program\n", dlerror());
             exit(1);
         }
         rand64 = dlsym(handler, "rand64");
         char * error;
         if ((error = dlerror()) != NULL) {
-            fprintf(stderr, "ERROR, could not find rand64, exiting program\n",
-                    error);
+            fprintf(stderr,
+                    "ERROR, could not find rand64, exiting program\n", error);
             exit(1);
         }
     }

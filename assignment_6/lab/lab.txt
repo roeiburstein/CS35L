@@ -34,11 +34,9 @@ using by running the command ldd simpgmp. Below is my output:
 After that, I ran the strace command on my simpgmp program with the command:
 strace ./simpgmp. My output consisted of many system calls, and among those
 are several system calls related to dynamic, three of which are the following:
-  - access()
   - open()
+  - access()
   - close()
-
-The access() system call takes
 
 The open() system call takes in the pathname of the file and permissions and
 returns a handle that the process will use to reference the file.
