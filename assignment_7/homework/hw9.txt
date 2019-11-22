@@ -1,0 +1,63 @@
+To begin, I created a new folder to start the homework and cloned a new
+version of diffutils. I used the command from the lab:
+git clone ~eggert/src/gnu/diffutils. Then I checked out v3.0 of the directory
+into a new branch called quote with the command git checkout -b quote v3.0.
+
+Then I applied the patch with the command:
+patch -p1 < ../lab/quote-3.0-patch.txt. My output was the following:
+
+   patching file src/cmp.c
+   patching file src/diff.c
+   patching file src/diff3.c
+   patching file src/dir.c
+   patching file src/sdiff.c
+   patching file src/util.c
+
+This output is expected, as these are the .c files that my patch was supposed
+to change.
+
+Now my next step was to create the changelog within my quote-3.0-patch.txt
+file. To do this, I typed emacs quote-3.0-patch.txt and use the command
+C-x 4 a, as specified in the instructions, to write a ChangeLog for the file.
+My ChangeLog is as follows:
+
+   * quote-3.0-patch.txt: The purpose of this patch is to modify
+   the use of quotes, due to the changes in the GNU coding
+   standards. Instead of quoting: `hello' and ``hello", now the
+   convension is to use 'hello' and "hello". These changes only
+   apply to comments, and .c files that use ` as a special character
+   are accordingly modified not to break the code.
+
+The I used the command C-x C-s to save the ChangeLog and then saved my file
+with C-x C-c as usual.
+
+Next, I commited my changes with the ChangeLog as my commit statement. I added
+my changes with the command git add . and then commited with the command
+git commit -F ChangeLog.
+
+Now I wanted to create a patch file that would not require me to make any
+changes by hand. To do this, I ran the command
+git format-patch -1 --stdout > formatted-patch.txt. This worked for me with no
+issues.
+
+My next step was to exchange formatted-patch.txt files with my partner so that
+each of us could test out if our patches work. My partner for this assignment
+is Omer Katz in lab section 8. After sending and receiving the patch files, I
+moved it to SEASnet and into my diffutils directory for testing.
+
+To verify that his patch works, I did git checkout -b quote-new v3.0 and then
+did git am < patch_omer.txt. It sucessfully ran with no problems. I ran
+./bootstrap, ./configure, make, and make check after to rebuild using the
+patch.
+
+To verify that the ChangeLog entry works, I ran the command make distdir and
+then inspected the diffutils*/ChangeLog. The initial message on the log was my
+message to confirm that the ChangeLog worked successfully.
+
+Finally, I logged out of SEASnet and logged in again while using the -X flag
+so that I could use X forwarding. To do this, I used the command:
+ssh -X classrbu@lnxsrv07.seas.ucla.edu. Then, I went into the emacs directory
+with the command cd ~eggert/src/gnu/emacs and then ran the gitk command.
+
+When I did this, I saw a window pop up with the repository, and looked through
+the long commit list and found a merge dated back in January 2015.
