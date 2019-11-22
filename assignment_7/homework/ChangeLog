@@ -1,0 +1,9 @@
+2019-11-21  Roei Burstein  <classrbu@lnxsrv06.seas.ucla.edu>
+
+	* quote-3.0-patch.txt: The purpose of this patch is to modify
+	the use of quotes, due to the changes in the GNU coding
+	standards. Instead of quoting: `hello' and ``hello", now the
+	convension is to use 'hello' and "hello". These changes only
+	apply to comments, and .c files that use ` as a special character
+	are accordingly modified not to break the code.
+
