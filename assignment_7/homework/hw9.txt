@@ -1,0 +1,39 @@
+To begin, I created a new folder to start the homework and cloned a new
+version of diffutils. I used the command from the lab:
+git clone ~eggert/src/gnu/diffutils. Then I checked out v3.0 of the directory
+into a new branch called quote with the command git checkout -b quote v3.0.
+
+Then I applied the patch with the command:
+patch -p1 < ../lab/quote-3.0-patch.txt. My output was the following:
+
+    patching file src/cmp.c
+    patching file src/diff.c
+    patching file src/diff3.c
+    patching file src/dir.c
+    patching file src/sdiff.c
+    patching file src/util.c
+
+This output is expected, as these are the .c files that my patch was supposed
+to change.
+
+Now my next step was to create the changelog within my quote-3.0-patch.txt
+file. To do this, I typed emacs quote-3.0-patch.txt and use the command
+C-x 4 a, as specified in the instructions, to write a ChangeLog for the file.
+My ChangeLog is as follows:
+
+    * quote-3.0-patch.txt: The purpose of this patch is to modify
+    the use of quotes, due to the changes in the GNU coding
+    standards. Instead of quoting: `hello' and ``hello", now the
+    convension is to use 'hello' and "hello". These changes only
+    apply to comments, and .c files that use ` as a special character
+    are accordingly modified not to break the code.
+
+The I used the command C-x C-s to save the ChangeLog and then saved my file
+with C-x C-c as usual.
+
+Next, I commited my changes with the ChangeLog as my commit statement. I added
+my changes with the command git add . and then commited with the command
+git commit -F ChangeLog.
+
+Now I wanted to create a patch file that would not require me to make any
+changes by hand. To do this, I ran the command
