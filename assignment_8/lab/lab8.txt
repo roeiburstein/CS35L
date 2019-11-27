@@ -1,5 +1,7 @@
 Assignment 8 Lab Document:
 
+### SETUP ###
+
 1. I connected my beaglebone to the computer with a usb to microusb cable as
 the instructions specified
 
@@ -60,3 +62,61 @@ and then with the command brew cask install xquartz
 
 11. Finally, in order to have the firefox web browser with GUI support on my
 beaglebone, I ran the command sudo apt-get install firefox-esr-l10n-en-gb.
+
+______________________________________________________________________________
+
+### LAB ###
+
+To begin the lab, I had to install openssh-server and openssh-client on the
+beaglebone. To do this, I ran the commands sudo apt-get install openssh-client
+and  sudo apt-get install openssh-server.
+
+### SERVER ###
+
+My next step was to generate my public and private keys. To do this, I ran the
+command ssh-keygen and saved the generated keys to the default directory
+/home/debian/.ssh/id_rsa. I entered no passphrase for the key generation.
+
+Key fingerprint: SHA256:9hhkeQo5fm1Cugk+G3YQszNerxHWC9E1Ep/gNeNbQeA
+
+Once I was done, I created an account for my partner using the following
+commands:
+    sudo useradd -d /home/omer -m omer
+    sudo passwd omer
+
+Then I set the password to be: omer_password
+
+Then my next step was to make a directory called .ssh for my partner with the
+following commands:
+    cd /home/omer
+    sudo mkdir .ssh
+
+My next step was to change permissions on the directory so that my partner is
+able to read, write, and execute. To do this, I ran the following commands:
+
+    sudo chown -R omer .ssh/
+    sudo chmod 700 .ssh/
+
+I also had to disable password based authentication on the sshd_config file,
+so I installed emacs with the command sudo apt-get install emacs and then
+used emacs to change the file. I used the command:
+sudo emacs /etc/ssh/sshd_config and changed #PasswordAuthentication yes to no.
+
+Then, I ran ifconfig to find my ip address, and I got the ip address:
+172.28.131.90. My partner's ip address is 172.28.157.102
+
+### CLIENT ###
+
+I regenerated my public and private keys the same way I did above with the
+command ssh-keygen. My new key fingerprint is
+SHA256:9hhkeQo5fm1Cugk+G3YQszNerxHWC9E1Ep/gNeNbQeA. Next I ran the following
+command in order to copy my public key to the server for authentication:
+ssh-copy-id -i roei01@172.28.157.102. The following is my output from the
+command:
+
+    /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed:
+    "/home/debian/.ssh/id_rsa.pub"
+
+    /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s),
+    to filter out any that are already installed
+

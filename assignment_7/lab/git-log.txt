@@ -131,7 +131,11 @@ Date:   Thu Apr 27 22:39:07 2017 -0700
 
     diff: don't crash if regexp is invalid
     
+<<<<<<< HEAD
     Problem reported by Marcel Böhme in:
+=======
+    Problem reported by Marcel BÃ¶hme in:
+>>>>>>> 5cb60c8dfdcedc87ed9c02e781957ec5dd00d84b
     http://lists.gnu.org/archive/html/bug-diffutils/2017-04/msg00002.html
     * src/diff.c (add_regexp): Exit if re_compile_pattern fails.
 
@@ -347,7 +351,11 @@ Date:   Tue Aug 16 22:20:28 2016 -0700
     presume_output_tty that was fixed in v3.4-10-gc2dc91f.
 
 commit c2dc91f1968c6ccd8ba623f9fa391f529ab800ab
+<<<<<<< HEAD
 Author: Hanno Böck <hanno@hboeck.de>
+=======
+Author: Hanno BÃ¶ck <hanno@hboeck.de>
+>>>>>>> 5cb60c8dfdcedc87ed9c02e781957ec5dd00d84b
 Date:   Tue Aug 16 22:02:13 2016 -0700
 
     diff: avoid duplicate definition of presume_output_tty
@@ -667,7 +675,11 @@ Date:   Sat Nov 28 18:02:05 2015 -0800
     * tests/brief-vs-proc-stat-zero: New test.
     * tests/Makefile.am: Add it.
     * NEWS (Bug fixes): Describe it.
+<<<<<<< HEAD
     Reported by Stephan Müller in http://debbugs.gnu.org/21942
+=======
+    Reported by Stephan MÃ¼ller in http://debbugs.gnu.org/21942
+>>>>>>> 5cb60c8dfdcedc87ed9c02e781957ec5dd00d84b
 
 commit a1140dd45845d838401425f9a3c0af944abb5795
 Author: Jim Meyering <meyering@fb.com>
@@ -689,7 +701,11 @@ Date:   Sat Nov 28 19:29:37 2015 -0800
     build: add gperf to the list of required programs
     
     * bootstrap.conf (buildreq): Add gperf to the list.
+<<<<<<< HEAD
     Reported by Stephan Müller in http://debbugs.gnu.org/21945
+=======
+    Reported by Stephan MÃ¼ller in http://debbugs.gnu.org/21945
+>>>>>>> 5cb60c8dfdcedc87ed9c02e781957ec5dd00d84b
 
 commit 875ca7183bd4b098f2d8fb71b10553df2d4d2d11
 Author: Giuseppe Scrivano <gscrivano@gnu.org>
@@ -771,7 +787,11 @@ Date:   Sun Mar 8 22:45:11 2015 +0100
     (stophandler): Likewise.  Copied from coreutils ls.
 
 commit b4efca9de418c0166f0b106fef068a594b4ab483
+<<<<<<< HEAD
 Author: Andreas Grünbacher <agruen@gnu.org>
+=======
+Author: Andreas GrÃ¼nbacher <agruen@gnu.org>
+>>>>>>> 5cb60c8dfdcedc87ed9c02e781957ec5dd00d84b
 Date:   Thu Sep 24 07:36:31 2015 -0700
 
     diff: Improve help text of option --label
@@ -791,8 +811,13 @@ Date:   Mon Aug 31 23:12:43 2015 -0700
     (dist_man1_MANS): ...prepend ../src to PATH, not just "..".
     Also, add a test to ensure that each $(bin_dir)/$$base is
     executable, so this doesn't happen again.
+<<<<<<< HEAD
     In http://debbugs.gnu.org/21023, Rodrigo Valiña
     Gutiérrez reported that diff.1 from the diffutils-3.3 tarball
+=======
+    In http://debbugs.gnu.org/21023, Rodrigo ValiÃ±a
+    GutiÃ©rrez reported that diff.1 from the diffutils-3.3 tarball
+>>>>>>> 5cb60c8dfdcedc87ed9c02e781957ec5dd00d84b
     contained no description of the then-new --no-dereference option.
 
 commit 5801f8add854c842e8065225d261f459089d7ac8
@@ -1019,7 +1044,11 @@ Date:   Mon Aug 12 16:24:01 2013 -0700
 
     cmp: tune 'cmp a b' for GCC x86
     
+<<<<<<< HEAD
     Performance problem reported by David Balažic in:
+=======
+    Performance problem reported by David BalaÅ¾ic in:
+>>>>>>> 5cb60c8dfdcedc87ed9c02e781957ec5dd00d84b
     http://lists.gnu.org/archive/html/bug-diffutils/2013-08/msg00013.html
     * src/system.h (word): Make it size_t, not uintmax_t.
     This sped up plain cmp 90% on my tests (GCC 4.8.1, x86).

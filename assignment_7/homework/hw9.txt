@@ -61,5 +61,8 @@ with the command cd ~eggert/src/gnu/emacs and then ran the gitk command.
 
 When I did this, I saw a window pop up with the repository, and looked through
 the long commit list and found a merge dated back in January 2015.
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 5cb60c8dfdcedc87ed9c02e781957ec5dd00d84b
