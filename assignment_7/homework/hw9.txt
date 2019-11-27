@@ -6,12 +6,12 @@ into a new branch called quote with the command git checkout -b quote v3.0.
 Then I applied the patch with the command:
 patch -p1 < ../lab/quote-3.0-patch.txt. My output was the following:
 
-   patching file src/cmp.c
-   patching file src/diff.c
-   patching file src/diff3.c
-   patching file src/dir.c
-   patching file src/sdiff.c
-   patching file src/util.c
+    patching file src/cmp.c
+    patching file src/diff.c
+    patching file src/diff3.c
+    patching file src/dir.c
+    patching file src/sdiff.c
+    patching file src/util.c
 
 This output is expected, as these are the .c files that my patch was supposed
 to change.
@@ -21,12 +21,12 @@ file. To do this, I typed emacs quote-3.0-patch.txt and use the command
 C-x 4 a, as specified in the instructions, to write a ChangeLog for the file.
 My ChangeLog is as follows:
 
-   * quote-3.0-patch.txt: The purpose of this patch is to modify
-   the use of quotes, due to the changes in the GNU coding
-   standards. Instead of quoting: `hello' and ``hello", now the
-   convension is to use 'hello' and "hello". These changes only
-   apply to comments, and .c files that use ` as a special character
-   are accordingly modified not to break the code.
+    * quote-3.0-patch.txt: The purpose of this patch is to modify
+    the use of quotes, due to the changes in the GNU coding
+    standards. Instead of quoting: `hello' and ``hello", now the
+    convension is to use 'hello' and "hello". These changes only
+    apply to comments, and .c files that use ` as a special character
+    are accordingly modified not to break the code.
 
 The I used the command C-x C-s to save the ChangeLog and then saved my file
 with C-x C-c as usual.
