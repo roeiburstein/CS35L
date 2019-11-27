@@ -37,3 +37,27 @@ git commit -F ChangeLog.
 
 Now I wanted to create a patch file that would not require me to make any
 changes by hand. To do this, I ran the command
+git format-patch -1 --stdout > formatted-patch.txt. This worked for me with no
+issues.
+
+My next step was to exchange formatted-patch.txt files with my partner so that
+each of us could test out if our patches work. My partner for this assignment
+is Omer Katz in lab section 8. After sending and receiving the patch files, I
+moved it to SEASnet and into my diffutils directory for testing.
+
+To verify that his patch works, I did git checkout -b quote-new v3.0 and then
+did git am < patch_omer.txt. It sucessfully ran with no problems. I ran
+./bootstrap, ./configure, make, and make check after to rebuild using the
+patch.
+
+To verify that the ChangeLog entry works, I ran the command make distdir and
+then inspected the diffutils*/ChangeLog. The initial message on the log was my
+message to confirm that the ChangeLog worked successfully.
+
+Finally, I logged out of SEASnet and logged in again while using the -X flag
+so that I could use X forwarding. To do this, I used the command:
+ssh -X classrbu@lnxsrv07.seas.ucla.edu. Then, I went into the emacs directory
+with the command cd ~eggert/src/gnu/emacs and then ran the gitk command.
+
+When I did this, I saw a window pop up with the repository, and looked through
+the long commit list and found a merge dated back in January 2015.
