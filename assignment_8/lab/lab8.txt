@@ -1,0 +1,140 @@
+Assignment 8 Lab Document:
+
+### SETUP ###
+
+1. I connected my beaglebone to the computer with a usb to microusb cable as
+the instructions specified
+
+2. I found BEAGLEBONE under devices and opened up START.htm
+
+3. Since my beaglebone was used, I had to update the software on the device.
+To do this, I followed the steps online and used balenaEtcher to load the
+debian 9.5 image onto an SD card. Once I did this, I did not need to install
+any new drivers
+
+4. I did not need to run the sudo rm rf.... command from piazza as I did not
+install any new drivers.
+
+5. I opened up 192.168.7.2 and established a connection to my beaglebone.
+Then I opened up terminal and typed up ssh debian@192.168.6.2. I then typed
+up the password "temppwd" as specified by the piazza instructions. This only
+worked when I connected to my beaglebone wifi where the password is
+"BeagleBone".
+
+6. After SSHing to my beaglebone, I started the process of connecting it to
+wifi by running the commands on piazza. The first command I ran was
+"connmanctl". Then to turn on wifi for the beaglebone, I ran the command
+"enable wifi". To scan for available networks, I ran the command "scan wifi".
+To view the networks, I ran the command "services". Then I ran "agent on" so
+that I can register as the prospective client. The wifi I wanted to connect to
+was UCLA_WEB, so I ran the command
+"connect wifi_5cf821d68a6d_55434c415f574542_managed_none". There was no
+passphrase so I just ran "quit" once I received a message that the connection
+was successful.
+
+7. I connected to UCLA_WEB since this was a valid choice for connecting
+without having issues
+
+8. I found the IP address of my beaglebone by running the command "ifconfig"
+and looking under wlan0:inet. My IP address is 172.28.130.174. I gave this to
+my teammate Omer Katz from lab session 8 to use for connection.
+
+9. In order to update the database of apt-get, I ran the command
+sudo apt-get update. This took some time as I was running an installation.
+Once this finished I ran the command sudo apt-get install xauth && sudo
+apt-get install xvfb. This also took some time to complete.
+
+10. Since my beaglebone came with X11 disabled, I had to manually enable X11
+forwarding by changing the contents of the /etc/ssh/ssh_config and
+/etc/ssh/sshd_config files. To do this, I ran the command
+sudo vim /etc/ssh/ssh_config and /etc/ssh/sshd_config respectively. On each
+one, I changed all X11 forwarding and Forwarding Agent to yes. I also checked
+to make sure I have Xquartz on my mac, and to make sure I have the latest
+version, I used a curl request with the command:
+
+    ruby -e "$(curl -fsSL
+    https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    < /dev/null 2> /dev/null ; brew install caskroom/cask/brew-cask 2
+    > /dev/null
+
+and then with the command brew cask install xquartz
+
+
+11. Finally, in order to have the firefox web browser with GUI support on my
+beaglebone, I ran the command sudo apt-get install firefox-esr-l10n-en-gb.
+
+______________________________________________________________________________
+
+### LAB ###
+
+To begin the lab, I had to install openssh-server and openssh-client on the
+beaglebone. To do this, I ran the commands sudo apt-get install openssh-client
+and  sudo apt-get install openssh-server.
+
+### SERVER ###
+
+My next step was to generate my public and private keys. To do this, I ran the
+command ssh-keygen and saved the generated keys to the default directory
+/home/debian/.ssh/id_rsa. I entered no passphrase for the key generation.
+
+Key fingerprint: SHA256:9hhkeQo5fm1Cugk+G3YQszNerxHWC9E1Ep/gNeNbQeA
+
+Once I was done, I created an account for my partner using the following
+commands:
+    sudo useradd -d /home/omer -m omer
+    sudo passwd omer
+
+Then I set the password to be: omer_password
+
+Then my next step was to make a directory called .ssh for my partner with the
+following commands:
+    cd /home/omer
+    sudo mkdir .ssh
+
+My next step was to change permissions on the directory so that my partner is
+able to read, write, and execute. To do this, I ran the following commands:
+
+    sudo chown -R omer .ssh/
+    sudo chmod 700 .ssh/
+
+I also had to disable password based authentication on the sshd_config file,
+so I installed emacs with the command sudo apt-get install emacs and then
+used emacs to change the file. I used the command:
+sudo emacs /etc/ssh/sshd_config and changed #PasswordAuthentication yes to no.
+
+Then, I ran ifconfig to find my ip address, and I got the ip address:
+172.28.131.90. My partner's ip address is 172.28.157.102
+
+### CLIENT ###
+
+I regenerated my public and private keys the same way I did above with the
+command ssh-keygen. My new key fingerprint is
+SHA256:9hhkeQo5fm1Cugk+G3YQszNerxHWC9E1Ep/gNeNbQeA. Next I ran the following
+command in order to copy my public key to the server for authentication:
+ssh-copy-id -i roei01@172.28.157.102. Then I ran ssh-add and ssh-agent to
+complete the authentication process.
+
+Once the setup was complete, I SSHed into Omer Katz's board with the command
+ssh roei01@172.28.157.102. To confirm a successful connection, I created a
+test file called tester.txt with the following command:
+echo 'Roei was here' > tester.txt. I asked omer to ssh into his own board to
+check if he could see his own file and he was able to. This confirmed a
+successful connection between my client and his server. I was able to
+successfully ssh into my partner's board without needing to input any
+passwords!
+
+### X11 FORWARDING ###
+
+To check for X11 forwarding , I typed the command
+ssh -X roei01@172.28.157.102. The -X flag indicates untrusted forwarding,
+which treats my remote machine as an untrusted client. This can be used to
+prevent any commands that violate the security of the machine.
+
+Once I was in, I ran the command firefox to check that the web browser would
+pop up and it did successfully. I did the same thing with the command xeyes
+and I got a graphical window pop up.
+
+I repeated the process with ssh -Y roei01@172.28.157.102. The -Y flag treats
+the remote machine as a trusted client, which can be dangerous as it will not
+filter potentially threatening commands. I opened both xeyes and firefox for
+testing.
