@@ -111,12 +111,30 @@ I regenerated my public and private keys the same way I did above with the
 command ssh-keygen. My new key fingerprint is
 SHA256:9hhkeQo5fm1Cugk+G3YQszNerxHWC9E1Ep/gNeNbQeA. Next I ran the following
 command in order to copy my public key to the server for authentication:
-ssh-copy-id -i roei01@172.28.157.102. The following is my output from the
-command:
+ssh-copy-id -i roei01@172.28.157.102. Then I ran ssh-add and ssh-agent to
+complete the authentication process.
 
-    /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed:
-    "/home/debian/.ssh/id_rsa.pub"
+Once the setup was complete, I SSHed into Omer Katz's board with the command
+ssh roei01@172.28.157.102. To confirm a successful connection, I created a
+test file called tester.txt with the following command:
+echo 'Roei was here' > tester.txt. I asked omer to ssh into his own board to
+check if he could see his own file and he was able to. This confirmed a
+successful connection between my client and his server. I was able to
+successfully ssh into my partner's board without needing to input any
+passwords!
 
-    /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s),
-    to filter out any that are already installed
+### X11 FORWARDING ###
 
+To check for X11 forwarding , I typed the command
+ssh -X roei01@172.28.157.102. The -X flag indicates untrusted forwarding,
+which treats my remote machine as an untrusted client. This can be used to
+prevent any commands that violate the security of the machine.
+
+Once I was in, I ran the command firefox to check that the web browser would
+pop up and it did successfully. I did the same thing with the command xeyes
+and I got a graphical window pop up.
+
+I repeated the process with ssh -Y roei01@172.28.157.102. The -Y flag treats
+the remote machine as a trusted client, which can be dangerous as it will not
+filter potentially threatening commands. I opened both xeyes and firefox for
+testing.
