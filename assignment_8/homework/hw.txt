@@ -1,0 +1,32 @@
+Suppose the other teams really had been observing all the bytes going across
+the network in your lab exercise. Is your resulting network still secure?
+
+1. Even if the other teams have been observing all the bytes going across the
+network in our lab exercise, the network would still be secure because our
+private key is only stored locally. They also would not be able to decode our
+private key given our public key as that is too computationally demanding.
+This is due to our asymmetric key encryption system.
+
+(1) If the other teams tapped our keystrokes, they would only have our
+usernames and passwords and not our private keys. This is because each private
+key is generated randomly and the private key they generate would be
+different from ours.
+
+(2) If the other teams had access to a usb with our system files, they can
+find the private key file and use it to decrypt our communications. They would
+have direct access to our ssh folder and would give them the public and
+private key pair, hence giving them the capacity to decypher every
+communication.
+
+2. The gpg2 --verify command does not actually verify which person created the
+file because it only checks if the target file and detached signature matches.
+If someone recreates the file and generates their own public key, then they
+can generate a new signature and verify it with gpg2 --verify. This
+verification would be successful, despite not confirming the actual creator
+of the file.
+
+In order to fix this, we need to have our public key and detached signature
+file verified by a third party. This third party can have possession of the
+original file and the Author's name/email through a certificate. This will
+make sure that the verification was actually through the original file and
+signature and not a tampered one.
