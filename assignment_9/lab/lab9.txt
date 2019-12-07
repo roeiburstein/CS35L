@@ -1,0 +1,93 @@
+To begin the lab assignment, I changed directories to the specified path of
+~eggert/src/gnu/emacs-CS-35L with the command cd ~eggert/src/gnu/emacs-CS-35L.
+
+1. To find out how much disk space is used to represent working files in this
+directory, I used the command du -sh on the current directory. "du" stands
+for disk usage according to the du man page and the -s and -h options
+represent --summarize and --human-readable. The result was 509MB. The actual
+working files consisted of 509MB - 350MB (found later) = 159MB
+
+To find out how much disk space is used to represent the Git repository, I
+used the comman du -sh .git. It's a similar command to the one above, except
+I specified the directory I want to check the size of as the next argument.
+The git repository was 350MB.
+
+To find out which files took the most disk space on the .git directory, I did
+cd .git to change my current directory to .git and ran du -h. This gave me a
+list of directories and files within .git along with their respective sizes.
+I saw that the objects/ directory took up 342MB out of the 350MB of .git so I
+looked inside and there were 2 files (or directories), pack and info, and
+pack had a size of 335MB. This means that almost the entire directory's disk
+space was taken up by objects/pack.
+
+2. Using the command git branch -a | wc -l, I saw how many total branches
+there are by counting the lines of the git branch -a output. In total, there
+are 353 local and remote branches.
+
+to isolate just the remote branches, I changed the -a option to -r and ran the
+same command of git branch -r | wc -l. My remote branch count was 177. Since a
+branch can be only local or remote, to get the number of local branches I
+just subtracted the total by the remote. That means there are 353-177 = 176
+local branches in this git repository.
+
+3. To find how many repositories are remote to this one, I ran the command
+git remote -v, with the -v option representing verbose. The only remote repo
+is called origin and it exists at the link
+https://git.savannah.gnu.org/git/emacs.git
+
+4. The 10 most recently committed to branches can be found with the command:
+git for-each-ref --sort=-committerdate refs/heads/ | head -n10.
+
+My output was the following (labeled for convenience):
+
+1. 19aecd340b7b3ab54629b790ba70a90130bad63d commit	refs/heads/master
+2. d2873706749ef68803e79bab6109a534f4c9d23a commit	refs/heads/scratch/joaot/
+   make-completion-at-point-function
+3. dd3fa9411a28175f9a1a984a69cfa7162023c5df commit	refs/heads/feature/
+   windows-with-utils
+4. 8f22251e595d7598d6643b0d24bf5f409dc59fa8 commit	refs/heads/scratch/
+   completion-api
+5. 8a4de19dfb52551a65c360a9346ede137d0fc6e8 commit	refs/heads/scratch/
+   a-modest-completion-redesign-proposal
+6. 2b0f589134d9427a96ab8cf0d8473715740984ef commit	refs/heads/scratch/
+   fido-mode
+7. 924a4201d24c10c48db920815ebf98dfaadc1e85 commit	refs/heads/feature/
+   gnus-select2
+8. 7a10082093791f0e035e4f9f95a774a7be1cd586 commit	refs/heads/feature/
+   extend_face_id
+9. 079461b360a2467ff4ab2ec57516c6f9e45f50fe commit	refs/heads/scratch/
+   jit-lock-antiblink-cleaned-up
+10. 55dcd32ad2209dc34bfb6b713bf73be9bf4c4cb2 commit	refs/heads/emacs-26
+
+The first part of each line is the commit id (or SHA1 hash), then the word
+"commit", and finally the path to the branch.
+
+5. To find out how many commits are in the master branch, I ran the command
+git rev-list --count master. It returned the number 139583.
+
+6. To find how many commits from other branches are also on the master branch,
+just divide the number of commits on the master branch by the total number of
+commits on any branch. We already found the number of commits on master in #5,
+so all we have to do is get the number of total commits on any branch.
+
+To find that out, I ran the command git rev-list --count --all. I got 143910.
+To get the percentage, I did 139583/143910 = 0.9699 which is 96.99%.
+
+7. To find the 10 people that authored the most master-branch commits in the
+year 2013 or later, I ran the command git shortlog -ns --since="01 Jan 2013"
+| head. The following was my output:
+
+    3691	Eli Zaretskii
+    3644	Glenn Morris
+    3604	Paul Eggert
+    1806	Lars Ingebrigtsen
+    1784	Stefan Monnier
+    1571	Michael Albinus
+     619	Dmitry Gutov
+     576	Noam Postavsky
+     471	Alan Mackenzie
+     469	Juri Linkov
+
+8.
+
+
