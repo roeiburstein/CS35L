@@ -4,7 +4,7 @@
 
 Last updated: 12/09/2019
 
-## Assignment Implementation
+## Assignments
 Assignment Specification | Assignment Implementation
 ------------------------ | -------------------------
 [1. Getting to know your system](http://web.cs.ucla.edu/classes/fall19/cs35L/assign/assign1.html) | [Assignment 1](https://github.com/roeiburstein/CS35L/tree/master/assignment_1)
