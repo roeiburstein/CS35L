@@ -2,5 +2,13 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/assignment_9/homework/testing/topo-ordered-commits-test-suite" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/assignment_9/homework/testing/topo-ordered-commits-test-suite/tests/repo_fixture/example-repo-1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/assignment_9/homework/testing/topo-ordered-commits-test-suite/tests/repo_fixture/example-repo-2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/assignment_9/homework/testing/topo-ordered-commits-test-suite/tests/repo_fixture/example-repo-3" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/assignment_9/homework/testing/topo-ordered-commits-test-suite/tests/repo_fixture/example-repo-4" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/assignment_9/homework/testing/topo-ordered-commits-test-suite/tests/repo_fixture/example-repo-5" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/assignment_9/homework/testing/topo-ordered-commits-test-suite/tests/repo_fixture/example-repo-6" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/assignment_9/homework/testing/topo-ordered-commits-test-suite/tests/repo_fixture/example-repo-7" vcs="Git" />
   </component>
 </project>

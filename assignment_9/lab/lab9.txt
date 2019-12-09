@@ -89,5 +89,34 @@ year 2013 or later, I ran the command git shortlog -ns --since="01 Jan 2013"
      469	Juri Linkov
 
 8.
+    Commit List:
+
+    1.  4ea37c2b8b0c5a68fde59770c3536195e0972217
+	2.  977cd6cb28a37744966ec62f70cf62659f6f302a
+	3.  625cee531623feddbe3174fad52c7db96ec60bb3
+	4.  5490ccc5ebf39759dfd084bbd31f464701a3e775
+	5.  0c06b93c1e467debd401eb0b3be4652fde14fa95
+	6.  820739bbb572b30b6ce45756c9960e48dca859af
+	7.  00e4e3e9d273a193620c3a4bb4914e555cb8e343
+	8.  49cd561dc62ea6b3fbedab7aef0f020733f4cf09
+	9.  abcb2e62dae6aa26308f7ac9efc89247f89cbe65
+	10. 98ac36efe4ce4bd3a0bca76fc73ce6c7abaa4371
+
+ 10--
+ |    \
+ 9---  |
+ |    \|
+ |     8
+ |    /
+ |   7
+ |  /
+ | 6
+ 5 |
+ |\|
+ | 4
+ | |
+ 2 3
+ \ /
+  1
 
 
